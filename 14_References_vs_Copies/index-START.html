@@ -8,13 +8,26 @@
 
   <script>
     // start with strings, numbers and booleans
+    let age = 100;
+    let age2 = age;
+    // console.log(age, age2);
+    age = 200;
+    // console.log(age, age2);
+
+    let name = 'Gerald';
+    let name2 = name;
+    // console.log(name, name2);
+    name = 'Leopold';
+    // console.log(name, name2);
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
+    const team = players;
 
     // You might think we can just do something like this:
+    // team[3] = 'Gerald';
 
     // however what happens when we update that array?
 
@@ -27,12 +40,19 @@
     // So, how do we fix this? We take a copy instead!
 
     // one way
+    const team2 = players.slice();
 
     // or create a new array and concat the old one in
+    const team3 = [].concat(players);
 
     // or use the new ES6 Spread
+    const team4 = [...players];
+    const team5 = Array.from(players);
 
     // now when we update it, the original one isn't changed
+    team4[3] = 'Harry Potter';
+    console.log(team);
+    console.log(team4);
 
     // The same thing goes for objects, let's say we have a person object
 
@@ -43,12 +63,35 @@
     };
 
     // and think we make a copy:
+    // const captain = person;
+    // captain.age = 99; //also changes persons number
 
     // how do we take a copy instead?
-
+    const captain = Object.assign({}, person, { age: 99, number: 666 });
+  
     // We will hopefully soon see the object ...spread
+    // const cap3 = {...person}; // not yet in JS
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const gerald = {
+      name: 'Gerald',
+      age: 50,
+      social: {
+        twitter: "@realgerald",
+        facebook: 'donthavezucki'
+      }
+    };
+
+    const shallowGerald = Object.assign({}, gerald);
+    shallowGerald.name = 'shallowGerald'; // changes name only for shallowGerald, not gerald
+    // shallowGerald.social.twitter = 'IAmShallowNow'; // also changes gerald
+
+    // => if really necessary look up function for 'deep clone'
+
+    // poor man's deep clone: (performance unknown)
+    const shalloGerald2 = JSON.parse(JSON.stringify(gerald));
+    shalloGerald2.social.twitter = 'shallow2bro'; // changes only shalloGerald2
+
 
   </script>
 
